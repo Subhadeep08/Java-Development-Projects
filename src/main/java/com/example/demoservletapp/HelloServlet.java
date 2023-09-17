@@ -1,6 +1,7 @@
 package com.example.demoservletapp;
 
 import java.io.*;
+import javax.servlet.ServletContext;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
@@ -20,6 +21,12 @@ public class HelloServlet extends HttpServlet {
         out.println("<html><body>");
         out.println("<h1>" + message + "</h1>");
         out.println("</body></html>");
+        ServletContext context = request.getServletContext();
+        String userName = (String)request.getParameter("username");
+        if(userName !=null){
+            context.setAttribute("username",userName);
+        }
+        out.print("Context with savedUsername: "+context.getAttribute("username"));
     }
 
     public void destroy() {
